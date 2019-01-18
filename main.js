@@ -1,6 +1,12 @@
 let root = window.location.origin;
 let otherPerson = null;
 
+const options = {
+  rock: '✊',
+  paper: '✋',
+  scissors: '✌',
+};
+
 function matchOutcome(optionA, optionB) {
   if (optionA === optionB) {
     return 'It\'s a tie!';
@@ -29,7 +35,9 @@ function onSubmit(option) {
 
     text.innerHTML = `
         <h2>${outcome}</h2>
-        <p>Your pick: ${option}<br />their pick: ${otherPersonPick}</p>
+        <p style="font-size: 2em">
+            ${options[option]} VS ${options[otherPersonPick]}
+        </p>
         
         <p><a href="?">Retry</a></p>
     `;
@@ -42,12 +50,12 @@ function onSubmit(option) {
   result.appendChild(text);
 }
 
-function createButton(name, value) {
+function createButton(value) {
   const button = document.createElement('button');
 
   button.addEventListener('click', () => onSubmit(value));
 
-  button.innerText = name;
+  button.innerText = options[value];
   button.value = value;
   button.style.fontSize = '3em';
   button.type = 'button';
@@ -58,9 +66,9 @@ function createButton(name, value) {
 function createForm() {
   const form = document.createElement('form');
 
-  const rock = createButton('✊', 'rock');
-  const paper = createButton('✋', 'paper');
-  const scissors = createButton('✌', 'scissors');
+  const rock = createButton('rock');
+  const paper = createButton('paper');
+  const scissors = createButton('scissors');
 
   form.appendChild(rock);
   form.appendChild(paper);
